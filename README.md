@@ -22,8 +22,15 @@
 - CI/CD pipelines based on Github actions that deploys to AWS with python linters, static code analysis, complexity checks and style formatters.
 - Unit, integration and E2E test folders ready for implementation.
 
-This is not a production ready code but more of am advanced POC.
+This is not a production ready code but more of an advanced POC.
+
 I use it to convert my blog's text to audio for accessibility reasons.
+
+It uploads any text file in the /text folder to S3, turns them into .mp3 files and sends them back to an email address.
+
+The email address is hardcoded in the service/logic/email.py file and can be changed.
+
+This is a sample code as part of a blog post I'm working on.
 
 ### Architecture
 
