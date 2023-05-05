@@ -100,7 +100,7 @@ Read our code of conduct [here.](https://github.com/ran-isenberg/aws-lambda-hand
 * Twitter: [IsenbergRan](https://twitter.com/IsenbergRan)
 
 ## Credits
-* [AWS Lambda Handler Cookbook (Python)](https://github.com/ran-isenberg/aws-lambda-handler-cookbook)
+* [AWS Polly wrapper examples (Python)](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/python/example_code/polly#code-examples)
 
 ## License
 This library is licensed under the MIT License. See the [LICENSE](https://github.com/ran-isenberg/aws-lambda-handler-cookbook/blob/main/LICENSE) file.
