@@ -1,6 +1,5 @@
 from typing import Any, Dict, List
 
-import boto3
 from aws_lambda_powertools.utilities.parser import parse
 from aws_lambda_powertools.utilities.parser.models import S3Model, S3RecordModel
 from aws_lambda_powertools.utilities.typing import LambdaContext
@@ -21,13 +20,8 @@ def start(event: Dict[str, Any], context: LambdaContext) -> None:
     logger.debug('environment variables', extra=env_vars.dict())
     parsed_input: S3Model = parse(event=event, model=S3Model)
     records: List[S3RecordModel] = parsed_input.Records
-    s3 = boto3.client('s3')
     for record in records:
         bucket_name = record.s3.bucket.name
         object_key = record.s3.object.key
-        # read text file
-        obj = s3.get_object(Bucket=bucket_name, Key=object_key)
-        text: str = obj['Body'].read().decode('utf-8').replace('\n', '')
-        logger.info(f'working on object {object_key} in the bucket {bucket_name}')
-        consume_text_async(text, bucket_name)
+        consume_text_async(bucket_name, object_key)
     logger.info('finished handling text processor event')
