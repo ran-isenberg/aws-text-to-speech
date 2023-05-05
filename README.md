@@ -40,7 +40,23 @@ I was inspired to design a solution for myself after seeing [this](https://www.y
 
 ![alt text](https://github.com/ran-isenberg/aws-text-to-speech/blob/main/hld.png?raw=true)
 
+Flow of events:
+- Text file is uploaded to S3
+- A Lambda function is triggered with a 'create object' event.
+- The Lambda function reads the text file, and uses [AWS Polly wrapper](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/python/example_code/polly#code-examples) to start a polly text to speech task that will save the output the origin bucket as an .mp3 file
+- The Lambda function waits for the task to complete by polling the task status
+- Once completed, the function downloads the file and sends it as an email attachment to an email address of your choice
 
+### Design Considerations
+1. Why do I use Lambda function? Why not a step function?
+
+That's definitely an improvement, but this was just a quick POC to automate my personal needs and provide a code example for a blog post.
+
+In a production code, you should use a step function state machine that waits until the task is completed.
+
+2. Why do I send the file via email, as it is already on the bucket?
+
+For my needs, I want to upload the mp3 file to my website and remove it from my personal AWS account. You can alter the behavior as you wish.
 ## Getting started
 ### **Prerequisites**
 
