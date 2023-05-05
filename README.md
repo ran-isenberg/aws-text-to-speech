@@ -34,7 +34,7 @@ This is a sample code as part of a blog post I'm working on.
 
 ### Who gave me this Idea?
 
-I was inspired to design a solution for myself after seeing [this](https://www.youtube.com/watch?v=k-U_YJiuLGs) excellent YouTube video by Johannes Koch and Jimmy Dahlqvist. 
+I was inspired to design a solution for myself after seeing [this](https://www.youtube.com/watch?v=k-U_YJiuLGs) excellent YouTube video by Johannes Koch and Jimmy Dahlqvist.
 
 ### Architecture
 
@@ -89,7 +89,15 @@ File contents are created out of the Pipfile.lock.
 
 ``make deploy`` ``make deps`` commands generate it automatically.
 
+ ### ** How to turn a text file to turn into speech?
 
+Put a text file (.txt) into the /text folder. Deploy the CDK  stack with 'make deploy' command.
+
+It will be uploaded into an S3 bucket and turned into an mp3 file sent to you via email.
+
+The email address is hardcoded and can be found at service/logic/email.py file.
+
+When you add a new file: you can either upload to directly to the bucket or add them to the /text folder and run 'make deploy'.
 
 ## Code Contributions
 Code contributions are welcomed. Read this [guide.](https://github.com/ran-isenberg/aws-lambda-handler-cookbook/blob/main/CONTRIBUTING.md)
