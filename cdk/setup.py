@@ -14,7 +14,7 @@ setup(
         'Topic :: Software Development :: Build Tools',
         'Programming Language :: Python :: 10',
     ],
-    url='https://github.com/ran-isenberg/aws-text-to-audio/',
+    url='https://github.com/ran-isenberg/aws-text-to-speech/',
     author='Ran Isenberg',
     author_email='ran.isenberg@ranthebuilder.cloud',
     packages=find_packages(exclude=['contrib', 'docs', 'tests']),
