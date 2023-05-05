@@ -19,7 +19,7 @@
 - A Serverless service that takes text files uploaded to a bucket, converts them to an MP3 and sends the output to an email address
 - Uses Amazon Polly
 - Python Serverless service with a recommended file structure.
-- CI/CD pipelines based on Github actions that deploys to AWS with python linters, static code analysis, complexity checks and style formatters.
+- CI/CD pipelines based on Github actions with python linters, static code analysis, complexity checks and style formatters.
 - Unit, integration and E2E test folders ready for implementation.
 
 This is not a production ready code but more of an advanced POC.
