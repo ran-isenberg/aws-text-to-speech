@@ -112,14 +112,14 @@ typeguard = ">=2.13.3,<2.14.0"
 
 [[package]]
 name = "aws-lambda-powertools"
-version = "2.15.0"
+version = "2.14.1"
 description = "AWS Lambda Powertools is a developer toolkit to implement Serverless best practices and increase developer velocity."
 category = "main"
 optional = false
 python-versions = ">=3.7.4,<4.0.0"
 files = [
-    {file = "aws_lambda_powertools-2.15.0-py3-none-any.whl", hash = "sha256:e1e5a74c2e1894ae699e917e2078a9c12f5a38286a04df2d100cc762daff3300"},
-    {file = "aws_lambda_powertools-2.15.0.tar.gz", hash = "sha256:6c63a3e1754a040534a359c985e6c24b1f96f8af42fe5fe46a96cf16a8ec096a"},
+    {file = "aws_lambda_powertools-2.14.1-py3-none-any.whl", hash = "sha256:3d147c57f146b360dcc74e23c499bdc390c68a11f66c7cb6927d392bdedfd5e4"},
+    {file = "aws_lambda_powertools-2.14.1.tar.gz", hash = "sha256:7fab049358b10293f59596fb6858b8f5cb587ba957c71a6016c18fbf1045b5da"},
 ]
 
 [package.dependencies]
@@ -153,18 +153,18 @@ wrapt = "*"
 
 [[package]]
 name = "boto3"
-version = "1.26.127"
+version = "1.26.122"
 description = "The AWS SDK for Python"
 category = "dev"
 optional = false
 python-versions = ">= 3.7"
 files = [
-    {file = "boto3-1.26.127-py3-none-any.whl", hash = "sha256:ded836536be41de9f9bd6a75e9feeb74d61b8c58ed7dc4ea89095082d7a616af"},
-    {file = "boto3-1.26.127.tar.gz", hash = "sha256:ed31b2d35aad31418bd8093c5732c6296f785cc234333330df6b81396424d93b"},
+    {file = "boto3-1.26.122-py3-none-any.whl", hash = "sha256:4d575c180312bec6108852bae12e6396b9d1bb404154d652c57ee849c62fbb83"},
+    {file = "boto3-1.26.122.tar.gz", hash = "sha256:38ca632be379963f2a2749b5f63a81fe1679913b954914f470ad282c77674bbc"},
 ]
 
 [package.dependencies]
-botocore = ">=1.29.127,<1.30.0"
+botocore = ">=1.29.122,<1.30.0"
 jmespath = ">=0.7.1,<2.0.0"
 s3transfer = ">=0.6.0,<0.7.0"
 
@@ -173,14 +173,14 @@ crt = ["botocore[crt] (>=1.21.0,<2.0a0)"]
 
 [[package]]
 name = "botocore"
-version = "1.29.127"
+version = "1.29.122"
 description = "Low-level, data-driven core of boto 3."
 category = "main"
 optional = false
 python-versions = ">= 3.7"
 files = [
-    {file = "botocore-1.29.127-py3-none-any.whl", hash = "sha256:cf41d871b2a17d40bd579ce44dace18c875659ac13139a66680540fdf6f1c304"},
-    {file = "botocore-1.29.127.tar.gz", hash = "sha256:d2f9d00df16058cb4a3572a66bb1831e846e5aaa7c0a3033dd47f9a80e2dd58b"},
+    {file = "botocore-1.29.122-py3-none-any.whl", hash = "sha256:c3b41078d235761b9c5dc22f534a76952622ef96787b96bbd10242ec4d73f2a5"},
+    {file = "botocore-1.29.122.tar.gz", hash = "sha256:9e4984a9e9777c6b949aa1e98323fa35480d9f99d447af7e179ae611f7ed5af9"},
 ]
 
 [package.dependencies]
@@ -376,14 +376,14 @@ files = [
 
 [[package]]
 name = "constructs"
-version = "10.2.16"
+version = "10.2.9"
 description = "A programming model for software-defined state"
 category = "dev"
 optional = false
 python-versions = "~=3.7"
 files = [
-    {file = "constructs-10.2.16-py3-none-any.whl", hash = "sha256:0de7a58c19253082826b621ae2ee8cb0a026d1f2c2efc3ad0c2cbc80ca2114cc"},
-    {file = "constructs-10.2.16.tar.gz", hash = "sha256:3a02207b0b281415764bcafa3e12c8e9370163e520b866f4e3a6e75b6e8b81c9"},
+    {file = "constructs-10.2.9-py3-none-any.whl", hash = "sha256:418849b9eb8f687b8cbade9f5ea7dceb5814d3a4435a38f31a0867f2b91c2529"},
+    {file = "constructs-10.2.9.tar.gz", hash = "sha256:75dbc414e3fa232061a1911823e6218bd731b7053554675f081ea8c258ae8e21"},
 ]
 
 [package.dependencies]
@@ -872,14 +872,14 @@ files = [
 
 [[package]]
 name = "mkdocs"
-version = "1.4.3"
+version = "1.4.2"
 description = "Project documentation with Markdown."
 category = "dev"
 optional = false
 python-versions = ">=3.7"
 files = [
-    {file = "mkdocs-1.4.3-py3-none-any.whl", hash = "sha256:6ee46d309bda331aac915cd24aab882c179a933bd9e77b80ce7d2eaaa3f689dd"},
-    {file = "mkdocs-1.4.3.tar.gz", hash = "sha256:5955093bbd4dd2e9403c5afaf57324ad8b04f16886512a3ee6ef828956481c57"},
+    {file = "mkdocs-1.4.2-py3-none-any.whl", hash = "sha256:c8856a832c1e56702577023cd64cc5f84948280c1c0fcc6af4cd39006ea6aa8c"},
+    {file = "mkdocs-1.4.2.tar.gz", hash = "sha256:8947af423a6d0facf41ea1195b8e1e8c85ad94ac95ae307fe11232e0424b11c5"},
 ]
 
 [package.dependencies]
@@ -916,14 +916,14 @@ mkdocs = ">=0.17"
 
 [[package]]
 name = "mkdocs-material"
-version = "9.1.9"
+version = "9.1.8"
 description = "Documentation that simply works"
 category = "dev"
 optional = false
 python-versions = ">=3.7"
 files = [
-    {file = "mkdocs_material-9.1.9-py3-none-any.whl", hash = "sha256:7db24261cb17400e132c46d17eea712bfe71056d892a9beba32cf68210297141"},
-    {file = "mkdocs_material-9.1.9.tar.gz", hash = "sha256:74d8da1371ab3a326868fe47bae3cbc4aa22e93c048b4ca5117e6817b88bd734"},
+    {file = "mkdocs_material-9.1.8-py3-none-any.whl", hash = "sha256:ac76e31bf52b2742c08a9d6629d64878f32dda5c949cd371082e25106c9be7dd"},
+    {file = "mkdocs_material-9.1.8.tar.gz", hash = "sha256:616ef98fc143b3ec8c559e2fec85f32103d2093e9c88333964d93105ea2d670b"},
 ]
 
 [package.dependencies]
@@ -1069,14 +1069,14 @@ testing = ["pytest", "pytest-benchmark"]
 
 [[package]]
 name = "pre-commit"
-version = "3.3.1"
+version = "3.2.2"
 description = "A framework for managing and maintaining multi-language pre-commit hooks."
 category = "dev"
 optional = false
 python-versions = ">=3.8"
 files = [
-    {file = "pre_commit-3.3.1-py2.py3-none-any.whl", hash = "sha256:218e9e3f7f7f3271ebc355a15598a4d3893ad9fc7b57fe446db75644543323b9"},
-    {file = "pre_commit-3.3.1.tar.gz", hash = "sha256:733f78c9a056cdd169baa6cd4272d51ecfda95346ef8a89bf93712706021b907"},
+    {file = "pre_commit-3.2.2-py2.py3-none-any.whl", hash = "sha256:0b4210aea813fe81144e87c5a291f09ea66f199f367fa1df41b55e1d26e1e2b4"},
+    {file = "pre_commit-3.2.2.tar.gz", hash = "sha256:5b808fcbda4afbccf6d6633a56663fed35b6c2bc08096fd3d47ce197ac351d9d"},
 ]
 
 [package.dependencies]
@@ -1641,14 +1641,14 @@ files = [
 
 [[package]]
 name = "types-requests"
-version = "2.29.0.0"
+version = "2.28.11.17"
 description = "Typing stubs for requests"
 category = "dev"
 optional = false
 python-versions = "*"
 files = [
-    {file = "types-requests-2.29.0.0.tar.gz", hash = "sha256:c86f4a955d943d2457120dbe719df24ef0924e11177164d10a0373cf311d7b4d"},
-    {file = "types_requests-2.29.0.0-py3-none-any.whl", hash = "sha256:4cf6e323e856c779fbe8815bb977a5bf5d6c5034713e4c17ff2a9a20610f5b27"},
+    {file = "types-requests-2.28.11.17.tar.gz", hash = "sha256:0d580652ce903f643f8c3b494dd01d29367ea57cea0c7ad7f65cf3169092edb0"},
+    {file = "types_requests-2.28.11.17-py3-none-any.whl", hash = "sha256:cc1aba862575019306b2ed134eb1ea994cab1c887a22e18d3383e6dd42e9789b"},
 ]
 
 [package.dependencies]
