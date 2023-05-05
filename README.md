@@ -32,6 +32,10 @@ The email address is hardcoded in the service/logic/email.py file and can be cha
 
 This is a sample code as part of a blog post I'm working on.
 
+### Who gave me this Idea?
+
+I was inspired to design a solution for myself after seeing [this](https://www.youtube.com/watch?v=k-U_YJiuLGs) excellent YouTube video by Johannes Koch and Jimmy Dahlqvist. 
+
 ### Architecture
 
 ![alt text](https://github.com/ran-isenberg/aws-text-to-speech/blob/main/hld.png?raw=true)
