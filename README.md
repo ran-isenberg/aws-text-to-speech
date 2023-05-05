@@ -1,25 +1,13 @@
 
 # AWS Serverless Cron Job Template (Python)
 
-[![license](https://img.shields.io/github/license/ran-isenberg/aws-serverless-cron-template)](https://github.com/ran-isenberg/aws-serverless-cron-template/blob/master/LICENSE)
+[![license](https://img.shields.io/github/license/ran-isenberg/aws-text-to-audio)](https://github.com/ran-isenberg/aws-text-to-audio/blob/master/LICENSE)
 ![PythonSupport](https://img.shields.io/static/v1?label=python&message=3.10&color=blue?style=flat-square&logo=python)
-![version](https://img.shields.io/github/v/release/ran-isenberg/aws-serverless-cron-template)
-![github-star-badge](https://img.shields.io/github/stars/ran-isenberg/aws-serverless-cron-template.svg?style=social)
-![issues](https://img.shields.io/github/issues/ran-isenberg/aws-serverless-cron-template)
+![version](https://img.shields.io/github/v/release/ran-isenberg/aws-text-to-audio)
+![github-star-badge](https://img.shields.io/github/stars/ran-isenberg/aws-text-to-audio.svg?style=social)
+![issues](https://img.shields.io/github/issues/ran-isenberg/aws-text-to-audio)
 
-![alt text](https://github.com/ran-isenberg/aws-serverless-cron-template/blob/main/banner.png?raw=true)
-
-This project provides a working, open source based, Serverless cron jobs Python code including DEPLOYMENT code with CDK and a pipeline.
-
-The project provides the following cron jobs:
-
-1. AWS EventBridge rule cron job that triggers a lambda every X minutes
-2. AWS EventBridge rule cron job that triggers a step function once a day at a specific time
-3. AWS EventBridge scheduler cron job that triggers a lambda once a day
-
-The AWS Lambda function use a logger, metrics, tracing, environment variables parsing and input validation best practices.
-
-This project can serve as a template for new Serverless cron jobs or a as a reference. - CDK deployment code, pipeline and handler are covered.
+![alt text](https://github.com/ran-isenberg/aws-text-to-audio/blob/main/banner.png?raw=true)
 
 **[Blogs website](https://www.ranthebuilder.cloud)**
 > **Contact details | ran.isenberg@ranthebuilder.cloud**
@@ -28,28 +16,19 @@ This project can serve as a template for new Serverless cron jobs or a as a refe
 
 ### **Features**
 
+- A Serverless service that takes text files uploaded to a bucket, converts them to an MP3 and sends the output to an email address
+- Uses Amazon Polly
 - Python Serverless service with a recommended file structure.
-- CDK infrastructure with infrastructure tests and security tests.
 - CI/CD pipelines based on Github actions that deploys to AWS with python linters, static code analysis, complexity checks and style formatters.
-- 3 different Serverless cron jobs including the new AWS EventBridge scheduler
 - Unit, integration and E2E test folders ready for implementation.
 
+This is not a production ready code but more of am advanced POC.
+I use it to convert my blog's text to audio for accessibility reasons.
 
-## Serverless Best Practices
-The AWS Lambda handler will implement multiple best practice utilities.
+### Architecture
 
-Each utility is implemented when a new blog post is published about that utility.
+![alt text](https://github.com/ran-isenberg/aws-text-to-audio/blob/main/hld.png?raw=true)
 
-The utilities cover multiple aspect of a production-ready service, including:
-
-- [Logging](https://www.ranthebuilder.cloud/post/aws-lambda-cookbook-elevate-your-handler-s-code-part-1-logging)
-- [Observability: Monitoring and Tracing](https://www.ranthebuilder.cloud/post/aws-lambda-cookbook-elevate-your-handler-s-code-part-2-observability)
-- [Observability: Business KPIs Metrics](https://www.ranthebuilder.cloud/post/aws-lambda-cookbook-elevate-your-handler-s-code-part-3-business-domain-observability)
-- [Environment Variables](https://www.ranthebuilder.cloud/post/aws-lambda-cookbook-environment-variables)
-- [Input Validation](https://www.ranthebuilder.cloud/post/aws-lambda-cookbook-elevate-your-handler-s-code-part-5-input-validation)
-- [Dynamic Configuration & feature flags](https://www.ranthebuilder.cloud/post/aws-lambda-cookbook-part-6-feature-flags-configuration-best-practices)
-- [Start Your AWS Serverless Service With Two Clicks](https://www.ranthebuilder.cloud/post/aws-lambda-cookbook-part-7-how-to-use-the-aws-lambda-cookbook-github-template-project)
-- [CDK Best practices](https://github.com/ran-isenberg/aws-lambda-handler-cookbook)
 
 ## Getting started
 ### **Prerequisites**

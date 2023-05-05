@@ -1,7 +1,7 @@
 [tool.poetry]
-name = "aws_serverless_cron"
+name = "aws_text_to_speech"
 version = "1.0.0"
-description = "This repository provides a working, deployable, open source based, Serverless cron jobs"
+description = "This repository deploys a serverless service that takes text files uploaded to a bucket, converts them to an MP3 and sends the output to an email address"
 authors = ["Ran Isenberg"]
 classifiers=[
     "Development Status :: 5 - Production/Stable",
@@ -10,9 +10,9 @@ classifiers=[
     "Natural Language :: English",
     "Programming Language :: Python :: 3.10",
 ]
-repository="https://github.com/ran-isenberg/aws-lambda-handler-cookbook"
+repository="https://github.com/ran-isenberg/aws-text-to-audio"
 readme = "README.md"
-keywords = ["aws lambda cron job", "AWS eventbridge scheduler", "AWS eventbridge rules", "serverless cron job"]
+keywords = ["amazon polly", "text to speech", ]
 license = "MIT-0"
 
 [tool.poetry.dependencies]
