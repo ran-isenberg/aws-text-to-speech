@@ -10,7 +10,7 @@ classifiers=[
     "Natural Language :: English",
     "Programming Language :: Python :: 3.10",
 ]
-repository="https://github.com/ran-isenberg/aws-text-to-audio"
+repository="https://github.com/ran-isenberg/aws-text-to-speech"
 readme = "README.md"
 keywords = ["amazon polly", "text to speech", ]
 license = "MIT-0"

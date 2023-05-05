@@ -1,13 +1,13 @@
 
-# AWS Serverless Cron Job Template (Python)
+# AWS Serverless Text to Speech Service (Python)
 
-[![license](https://img.shields.io/github/license/ran-isenberg/aws-text-to-audio)](https://github.com/ran-isenberg/aws-text-to-audio/blob/master/LICENSE)
+[![license](https://img.shields.io/github/license/ran-isenberg/aws-text-to-speech)](https://github.com/ran-isenberg/aws-text-to-speech/blob/master/LICENSE)
 ![PythonSupport](https://img.shields.io/static/v1?label=python&message=3.10&color=blue?style=flat-square&logo=python)
-![version](https://img.shields.io/github/v/release/ran-isenberg/aws-text-to-audio)
-![github-star-badge](https://img.shields.io/github/stars/ran-isenberg/aws-text-to-audio.svg?style=social)
-![issues](https://img.shields.io/github/issues/ran-isenberg/aws-text-to-audio)
+![version](https://img.shields.io/github/v/release/ran-isenberg/aws-text-to-speech)
+![github-star-badge](https://img.shields.io/github/stars/ran-isenberg/aws-text-to-speech.svg?style=social)
+![issues](https://img.shields.io/github/issues/ran-isenberg/aws-text-to-speech)
 
-![alt text](https://github.com/ran-isenberg/aws-text-to-audio/blob/main/banner.png?raw=true)
+![alt text](https://github.com/ran-isenberg/aws-text-to-speech/blob/main/banner.png?raw=true)
 
 **[Blogs website](https://www.ranthebuilder.cloud)**
 > **Contact details | ran.isenberg@ranthebuilder.cloud**
@@ -19,15 +19,22 @@
 - A Serverless service that takes text files uploaded to a bucket, converts them to an MP3 and sends the output to an email address
 - Uses Amazon Polly
 - Python Serverless service with a recommended file structure.
-- CI/CD pipelines based on Github actions that deploys to AWS with python linters, static code analysis, complexity checks and style formatters.
+- CI/CD pipelines based on Github actions with python linters, static code analysis, complexity checks and style formatters.
 - Unit, integration and E2E test folders ready for implementation.
 
-This is not a production ready code but more of am advanced POC.
+This is not a production ready code but more of an advanced POC.
+
 I use it to convert my blog's text to audio for accessibility reasons.
+
+It uploads any text file in the /text folder to S3, turns them into .mp3 files and sends them back to an email address.
+
+The email address is hardcoded in the service/logic/email.py file and can be changed.
+
+This is a sample code as part of a blog post I'm working on.
 
 ### Architecture
 
-![alt text](https://github.com/ran-isenberg/aws-text-to-audio/blob/main/hld.png?raw=true)
+![alt text](https://github.com/ran-isenberg/aws-text-to-speech/blob/main/hld.png?raw=true)
 
 
 ## Getting started
