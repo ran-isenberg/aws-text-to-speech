@@ -36,6 +36,10 @@ This is a sample code as part of a blog post I'm working on.
 
 I was inspired to design a solution for myself after seeing [this](https://www.youtube.com/watch?v=k-U_YJiuLGs) excellent YouTube video by Johannes Koch and Jimmy Dahlqvist.
 
+### Design
+
+For the service design and further information checkout my blog post [here](https://www.ranthebuilder.cloud/post/serverless-empowers-accessibility-convert-text-to-speech-with-amazon-polly). 
+
 ### Architecture
 
 ![alt text](https://github.com/ran-isenberg/aws-text-to-speech/blob/main/hld.png?raw=true)
