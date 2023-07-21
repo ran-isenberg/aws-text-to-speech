@@ -1,11 +1,11 @@
 from typing import Any, Dict, List
 
+from aws_lambda_env_modeler import get_environment_variables, init_environment_variables
 from aws_lambda_powertools.utilities.parser import parse
 from aws_lambda_powertools.utilities.parser.models import S3Model, S3RecordModel
 from aws_lambda_powertools.utilities.typing import LambdaContext
 
 from service.handlers.schemas.env_vars import ConsumerEnvVars
-from service.handlers.utils.env_vars_parser import get_environment_variables, init_environment_variables
 from service.handlers.utils.observability import logger, tracer
 from service.logic.consume_text import consume_text_async
 
