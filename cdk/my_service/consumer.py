@@ -23,7 +23,7 @@ class TextConsumer(Construct):
             self,
             constants.LAMBDA_LAYER_NAME,
             entry=constants.COMMON_LAYER_BUILD_FOLDER,
-            compatible_runtimes=[_lambda.Runtime.PYTHON_3_10],
+            compatible_runtimes=[_lambda.Runtime.PYTHON_3_11],
             removal_policy=RemovalPolicy.DESTROY,
         )
 
@@ -57,7 +57,7 @@ class TextConsumer(Construct):
         function = _lambda.Function(
             self,
             f'{self.id_}TextConsumer',
-            runtime=_lambda.Runtime.PYTHON_3_10,
+            runtime=_lambda.Runtime.PYTHON_3_11,
             code=_lambda.Code.from_asset('.build/lambdas/'),
             handler='service.handlers.consumer.start',
             environment={
