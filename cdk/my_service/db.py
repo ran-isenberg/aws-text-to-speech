@@ -4,7 +4,6 @@ from constructs import Construct
 
 
 class DB(Construct):
-
     def __init__(self, scope: Construct, id_: str) -> None:
         super().__init__(scope, id_)
         self.id_ = id_

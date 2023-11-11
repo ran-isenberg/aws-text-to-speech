@@ -37,12 +37,12 @@ jobs:
       - name: pre commit
         run: |
           make pre-commit
-      - name: Lint with flake8 and mypy
+      - name: Lint with mypy
         run: |
           make lint
       - name: file format
         run: |
-          yapf -d -vv --style=./.style --exclude=.venv --exclude=.build --exclude=cdk.out --exclude=.git  -r .
+          make format
       - name: Complexity scan
         run: |
           make complex
