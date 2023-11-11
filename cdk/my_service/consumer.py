@@ -1,8 +1,7 @@
-from aws_cdk import Duration, RemovalPolicy
+from aws_cdk import Duration, RemovalPolicy, aws_s3_notifications
 from aws_cdk import aws_iam as iam
 from aws_cdk import aws_lambda as _lambda
 from aws_cdk import aws_s3 as s3
-from aws_cdk import aws_s3_notifications
 from aws_cdk.aws_lambda_python_alpha import PythonLayerVersion
 from aws_cdk.aws_logs import RetentionDays
 from constructs import Construct
@@ -12,7 +11,6 @@ from cdk.my_service.constants import DEST_KEY_PREFIX
 
 
 class TextConsumer(Construct):
-
     def __init__(self, scope: Construct, id_: str, bucket: s3.Bucket) -> None:
         super().__init__(scope, id_)
         self.id_ = id_
@@ -34,23 +32,33 @@ class TextConsumer(Construct):
             f'{self.id_}consumer',
             assumed_by=iam.ServicePrincipal('lambda.amazonaws.com'),
             inline_policies={
-                'ses':
-                    iam.PolicyDocument(statements=[iam.PolicyStatement(
-                        actions=['ses:SendRawEmail'],
-                        resources=['*'],
-                        effect=iam.Effect.ALLOW,
-                    )]),
-                's3':
-                    iam.PolicyDocument(statements=[
-                        iam.PolicyStatement(actions=['s3:GetObject', 's3:DeleteObject', 's3:ListBucket', 's3:PutObject'],
-                                            resources=[bucket.bucket_arn, f'{bucket.bucket_arn}/*'], effect=iam.Effect.ALLOW),
-                    ]),
-                'polly':
-                    iam.PolicyDocument(
-                        statements=[
-                            iam.PolicyStatement(actions=['polly:StartSpeechSynthesisTask', 'polly:SynthesizeSpeech', 'polly:GetSpeechSynthesisTask'],
-                                                resources=['*'], effect=iam.Effect.ALLOW),
-                        ],),
+                'ses': iam.PolicyDocument(
+                    statements=[
+                        iam.PolicyStatement(
+                            actions=['ses:SendRawEmail'],
+                            resources=['*'],
+                            effect=iam.Effect.ALLOW,
+                        )
+                    ]
+                ),
+                's3': iam.PolicyDocument(
+                    statements=[
+                        iam.PolicyStatement(
+                            actions=['s3:GetObject', 's3:DeleteObject', 's3:ListBucket', 's3:PutObject'],
+                            resources=[bucket.bucket_arn, f'{bucket.bucket_arn}/*'],
+                            effect=iam.Effect.ALLOW,
+                        ),
+                    ]
+                ),
+                'polly': iam.PolicyDocument(
+                    statements=[
+                        iam.PolicyStatement(
+                            actions=['polly:StartSpeechSynthesisTask', 'polly:SynthesizeSpeech', 'polly:GetSpeechSynthesisTask'],
+                            resources=['*'],
+                            effect=iam.Effect.ALLOW,
+                        ),
+                    ],
+                ),
             },
             managed_policies=[iam.ManagedPolicy.from_aws_managed_policy_name(managed_policy_name=('service-role/AWSLambdaBasicExecutionRole'))],
         )

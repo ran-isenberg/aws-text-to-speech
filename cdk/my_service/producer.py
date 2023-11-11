@@ -8,7 +8,6 @@ from cdk.my_service.constants import DEST_KEY_PREFIX
 
 
 class InputProducer(Construct):
-
     def __init__(self, scope: Construct, id_: str, bucket: s3.Bucket) -> None:
         super().__init__(scope, id_)
         self.id_ = id_

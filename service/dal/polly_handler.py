@@ -244,7 +244,9 @@ class PollyWrapper:
             lexicons = response['Lexicons']
             logger.info('Got %s lexicons.', len(lexicons))
         except ClientError:
-            logger.exception("Couldn't get  %s.",)
+            logger.exception(
+                "Couldn't get  %s.",
+            )
             raise
         else:
             return lexicons

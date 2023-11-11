@@ -24,7 +24,10 @@ def consume_text_async(bucket_name: str, object_key: str) -> None:
     text: str = obj['Body'].read().decode('utf-8').replace('\n', '')
     logger.info(f'working on object {object_key} in the bucket {bucket_name}')
     polly_wrapper = PollyWrapper()
-    audio_stream, _, = polly_wrapper.do_synthesis_task(
+    (
+        audio_stream,
+        _,
+    ) = polly_wrapper.do_synthesis_task(
         text=text,
         engine='neural',
         voice='Ruth',

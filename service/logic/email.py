@@ -24,7 +24,9 @@ def send_binary_file(data: bytes):
     attachment.add_header('Content-Disposition', 'attachment', filename='audio.mp3')
     msg.attach(attachment)
     # Convert message to string and send
-    ses_client = boto3.client('ses',)
+    ses_client = boto3.client(
+        'ses',
+    )
     ses_client.send_raw_email(
         Source=sender_email,
         Destinations=[recipient_email],
