@@ -8,9 +8,14 @@ dev:
 	pre-commit install
 	poetry shell
 
+format:
+	poetry run ruff check . --fix
+
+format-fix:
+	poetry run ruff format .
+
+
 lint:
-	@echo "Running flake8"
-	flake8 service/* cdk/* tests/* --exclude patterns='build,cdk.json,cdk.context.json,.yaml'
 	@echo "Running mypy"
 	make mypy-lint
 
@@ -20,8 +25,6 @@ complex:
 	@echo "Running xenon"
 	xenon --max-absolute B --max-modules A --max-average A -e 'tests/*,.venv/*,cdk.out/*' .
 
-sort:
-	isort ${PWD}
 
 pre-commit:
 	pre-commit run -a --show-diff-on-failure
@@ -47,10 +50,8 @@ integration:
 e2e:
 	pytest tests/e2e  --cov-config=.coveragerc --cov=service --cov-report xml
 
-pr: deps yapf sort pre-commit complex lint unit deploy integration e2e
+pr: deps pre-commit complex lint unit deploy integration e2e
 
-yapf:
-	yapf -i -vv --style=./.style --exclude=.venv --exclude=.build --exclude=cdk.out --exclude=.git  -r .
 
 pipeline-tests:
 	pytest tests/unit tests/integration  --cov-config=.coveragerc --cov=service --cov-report xml
@@ -67,3 +68,8 @@ docs:
 
 lint-docs:
 	docker run -v ${PWD}:/markdown 06kellyjac/markdownlint-cli --fix "docs"
+
+
+update-deps:
+	poetry update
+	pre-commit autoupdate
