@@ -30,7 +30,7 @@ def consume_text_async(bucket_name: str, object_key: str) -> None:
     ) = polly_wrapper.do_synthesis_task(
         text=text,
         engine='neural',
-        voice='Ruth',
+        voice='Danielle',
         audio_format='mp3',
         s3_bucket=bucket_name,
     )
