@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "aws_text_to_speech"
-version = "1.0.0"
+version = "1.1.0"
 description = "This repository deploys a serverless service that takes text files uploaded to a bucket, converts them to an MP3 and sends the output to an email address"
 authors = ["Ran Isenberg"]
 classifiers=[
@@ -16,7 +16,7 @@ keywords = ["amazon polly", "text to speech", ]
 license = "MIT-0"
 
 [tool.poetry.dependencies]
-python = "^3.11.0"
+python = "^3.12.0"
 pydantic = {version = "^2.0.3"}
 email-validator = {version = "*"}
 aws-lambda-powertools =  {extras = ["tracer"],version = "^2.22.0"}
@@ -87,8 +87,8 @@ exclude = [
 line-length = 150
 indent-width = 4
 
-# Assume Python 3.11
-target-version = "py311"
+# Assume Python 3.12
+target-version = "py312"
 
 [tool.ruff.lint]
 # Enable Pyflakes (`F`) and a subset of the pycodestyle (`E`)  codes by default.

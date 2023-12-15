@@ -1,135 +1,196 @@
-Export CloudWatch Logs to Third-party Observability Tools with Serverless
+AWS re:Invent 2023: My Serverless Takeaways
 
+Now that re:Invent 2023 is officially over, let's go over the exciting new services and features launched from a Serverless developer perspective.
 
-
-
-
-Integrating AWS CloudWatch with third-party observability tools can be a game-changer for monitoring serverless services.
-This blog post will explain why you should integrate CloudWatch with a third-party observability tool in a serverless services environment.
-You will also learn how to export CloudWatch logs effectively using serverless technology to third-party observability tools such as DataDog, Grafana, and others to simplify log management and provide deeper insights into your services' performance.
- 
 Table of Contents
-The Serverless Case for Exporting CloudWatch Logs
-CloudWatch Logs Serverless Exporters
-Kinesis Firehose
-Kinesis DataStreams & EventBridge Pipes
-Kinesis DataStreams & Lambda Function
-Summary
- 
-The Serverless Case for Exporting CloudWatch Logs
-Monitoring a serverless service starts with service logs. AWS Lambda and CloudWatch have a native and transparent integration. Lambda functions output their logs to CloudWatch log groups by default. You can learn more about logging best practices in a previous post here.
-Once the logs appear in the CloudWatch console, the next step in monitoring your service is to build a dashboard. You can learn more about dashboard building best practices in a previous post here.
-However, CloudWatch dashboards have downsides: they don't allow a single view of multiple AWS accounts. That capability is critical when you work in a company with various services spanning multiple AWS accounts and need to debug user actions across multiple services in a single dashboard. In addition, some companies prefer third-party observability tools such as Grafana Cloud, DataDog, and others, due to their ease of use and other advanced features.
 
-So why should you keep using CloudWatch? Why not just output the logs directly to a third-party observability tool?
-If you use serverless technology, it makes more sense to keep using CloudWatch as the default logs output. Here's why:
-Performance. Let's assume we export all logs directly to a third party and don't write to CloudWatch. Integration with these 3rd party tools might require the use of an SDK. SDKs affect Lambda function performance as the Lambda process exports the logs with an API call to the third party during the invocation.
-Less deployment dependencies. Another option to integrate with third-party tools is to use a Lambda extension (in the form of a Lambda layer - like DataDog). The lambda layer has its disadvantages which I discuss here, but the major downside is that it adds another deployment time dependency.
-Easy to change. If you want to switch from one 3rd party to another (yes, it happens!), you must change ALL your functions to use a new SDK or Lambda extension—a huge pain. However, if you write all logs to CloudWatch and export them from a centralized solution in your account to a third party - switching a third party translates to changing the logs exporter while your services do not change!
-On the other hand, the only major downside of using CloudWatch and a third-party tool simultaneously is storing logs in both systems and the added cost they bring. However, you can reduce costs by reducing the log retention in CloudWatch or using the third-party tools only in production accounts and not in development accounts.
+The Keynote
 
-To summarize, writing Lambda function logs to CloudWatch instead of directly exporting them to the third-party tool means better performance, fewer deployment dependencies, and a more effortless switch to a different third-party tool in the future, but these features come at an added cost.
-Now, all that's left to do is to implement a centralized logs exporter that will send CloudWatch logs to a third party of your choice without impacting any of your services.
- 
+Start a Serverless Service with Three Clicks
 
-CloudWatch Logs Serverless Exporters
-We will review several designs for a centralized logs exporter. You will deploy it in your accounts across the organization, and it will make sure the logs are exported to the third-party tool. As noted before, your serverless services are unaware of the logs exporter or the third-party tools.
+Elasticache Serverless
 
-The following designs rely on a CloudWatch subscription capability to subscribe log groups to a destination, meaning CloudWatch sends log streams to a destination of your choice: Kinesis DataStream, Amazon OpenSearch, Lambda function, or Kinesis Firehose.
-These are the possible options for the design entry points.
+SQS Improvements
 
-You can use subscriptions to get access to a real-time feed of log events from CloudWatch Logs and have it delivered to other services such as an Amazon Kinesis stream, an Amazon Kinesis Data Firehose stream, or AWS Lambda for custom processing, analysis, or loading to other systems. When log events are sent to the receiving service, they are base64 encoded and compressed with the gzip format.
+CloudWatch Improvements
 
-You can add a filter to select what log groups you don't want to export. For more information, refer to the documentation.
+StepFunction Updates
+
+AWS Lambda Improvements
+
+EventBridge Pipes Logging Support
+
+RedShift Serverless (Preview)
+
+Amazon Aurora Limitless (Preview)
+
+Amazon Q (Preview)
+
+AWS AppComposer in VS Code
 
 
-We will review several log exporter designs, discuss their pros and cons, and how easy it is to switch between third parties.
-All the designs rely on serverless architecture to keep the management and maintainability costs as low as possible.
-Please note that I do not cover costs in this post. Make sure to calculate a design of your choice and match it to your needs and budget.
- 
+The Keynote
 
-Kinesis Firehose
-In the following design, we will use Kinesis Firehose as the entry point that receives a batch of logs. When log events are sent to the receiving service, they are base64 encoded and compressed with the gzip format, according to the documentation.
-FireHose can invoke a transformation Lambda function per batch. The Lambda function can process the batch, alter it, and return the processed output to Firehose. The function has five minutes per batch to process it. The transformation Lambda provides several powerful capabilities that you can implement:
-Filter out logs from the batch, thus controlling which logs you export to a third party.
-Enrich logs with metadata (stack tags, etc.)
-Remove personal identifiable information (PII) from logs before sending them to a third party. You have total control.
-Once processed, Firehose sends the batch to an HTTP endpoint destination. You can send it to AWS observability partners such as Datadog, Dynatrace, LogicMonitor, MongoDB, New Relic, Splunk, or Sumo Logic.
+This year, I attended DR. Werner Vogels' keynote in person, and it was quite the experience!
 
+Vogels' keynote did not disappoint, and it was inspiring yet filled with humor as last year. However, if you expected some groundbreaking announcements, this was not the keynote for you.
 
+Vogels discusses "The Frugal Architect" guidelines, which correlates to my blog post, the "Cloud Architect's High-Level Design Template". It is a crucial reminder for cloud architects, developers, and CFOs. Cost and sustainability are a critical part of every architecture.
 
-Pros:
-Fully serverless solution.
-Firehose handles transformation function invocation failures.
-Excellent debug. You can configure Firehose to send failed batches to an S3 bucket. Each batch includes logs that help debug the HTTP destination failure. Refer to the documentation here.
-Transformation Lambda function capabilities as described above.
-Easy to switch between supported 3rd parties - all you need to do is change the destination URL (and API secret keys).
-Writing code that sends HTTPS requests and manages retries is unnecessary, as Firehose does that for you.
-All design resources support auto-scaling.
-Cons:
-If a response fails to conform to the requirements below, the Kinesis Firehose server treats it as though it had a 500 status code with no body. - AWS
-Firehose has a unique HTTP request/response format; not all third-party tools support it. Refer to the documentation here.
+As for the rest of the concepts he describes, Brooke Jamieson breaks them down quite nicely:
 
+One sentence though, hit hard:
 
- 
-Kinesis DataStreams & EventBridge Pipes
-One of the major cons of the previous design was that not ALL third-party observability tools are supported, for example, Grafana. The following two designs solve that and allow you to export to any third-party tool. Let's review the first design.
-This design came to reality from a discussion with a fellow AWS serverless hero, Aidan Steele, who suggested EventBridge pipes as an option. Thank you Aidan!
+I can't tell you how many times I have heard this sentence from developers in my lifetime.
 
-In this example, we will subscribe our logs to Kinesis DataStreams. We will set the output of the DataStreams to an EventBridge Pipe. We cannot use Firehose as an entry point because it does not support export to an EventBridge pipe.
+Just because we always do something the same way does not mean we should keep doing it. Always look to improve and refactor.
 
+The rest of the keynote focused on AI advancements and several announcements, which I covered below. The segment about AI saving children from child abuse was also a keynote highlight. I highly suggest you watch the entire keynote.
 
-Pipes are intended for point-to-point integrations between supported sources and targets, with support for advanced transformations and enrichment. It reduces the need for specialized knowledge and integration code when developing event-driven architectures
-EventBridge pipes will get a batch of logs from Kinesis DataStreams, trigger an enrichment Lambda function, and send the batch to an API destination of our choice over HTTPS.
+Let's review the most exciting new services and features for us serverless developers.
 
+Start a Serverless Service with Three Clicks
 
-In this example, we will export the logs to Grafana.
-You can use EventBridge Pipe's filter capabilities, but since the logs are gzipped, filtering logs in the enrichment Lambda is simpler.
-The enrichment Lambda function will can implement similar capabilities to the transformation Lambda in the Firehose design:
-Filter out logs from the batch, thus controlling which logs are exported to a third party.
-Enrich logs with metadata (stack tags, etc.)
-Remove personal identifiable information (PII) from logs before sending them to a third party. You have total control.
-Return a payload that the third party expects to receive, i.e. the JSON payload Grafana Loki expects to receive - see the example in the docs and the image below:
+This is a shameless self-plug :)
 
+If you missed my breakout session with Heitor Lessa, "The Pragamtic Serverless Python Developer", the recording is live.
 
-The enrichment Lambda returns the payload that contains the filtered and enriched logs in the format that a specific third party expects. The EventBridge pipe then sends the payload to the API destination.
+We discuss pragmatism for serverless Python development. We talk about project structure, writing Lambda handlers, integration code, testing synchronous and asynchronous flows, and provide open-source tools for optimizaing cold starts and writing documentation.
 
-Pros:
-Fully serverless solution.
-The design supports ALL third parties via HTTP batch log exports.
-Enrichment Lambda function capabilities - filter, PII, enrichment.
-Writing code that sends HTTPS requests and manages retries is unnecessary as EventBridge Pipes handles that for you.
-EventBridge Pipes and Lambda support automatic scaling.
-Cons:
-It is harder to switch between third parties - you need to change the Pipe API destination and rewrite the enrichment function to match the payload of the other third party.
-Harder to debug, at the time of writing, EventBridge Pipes provide only failure metrics but not debug logs like Firehose.
-Failed logs are lost and not sent to a backup S3 bucket.
-KinesisData Streams can cost more than Firehose if you don't select the correct scale mechanism that fits your log bursts (on-demand vs. provisioned).
- 
+We also provide a full serverless service GitHub repo with production-ready features such as CI/CD pipeline with multiple environments (dev, stage, production), CW dashboards, observability, CDK code, and Cognito authentication. 
 
-Kinesis DataStreams & Lambda Function
-This third design improves on the cons described in the last design at the cost of extra code and resources to maintain. We want to tackle the issue of debuggability and failed logs getting lost.
+And lastly, if you wish to start a serverless service using the same best practices, I have a template GitHub repository ready for use with just three clicks.
 
+Elasticache Serverless
 
-We will replace EventBridge Pipes with a Lambda Function as described here.
-This sole function is now required to process our logs, filter, enrich, remove PII, and send the batch to the third party with an HTTP request. It must retry, handle errors, and send failed batches or log entries to the backup S3 bucket.
-If you think the function does too much, you can split the function into two with an SQS in between:  function (filter, enrich, PII) -> SQS -> function (export, send failures to S3), where the second function handles the export to the third party. This design is more robust but adds latency to the export process.
+A new serverless option for Elasticache enables customers to create a highly available cache in less than a minute, supporting auto-scaling. Overall, this is a significant improvement over the current offering of ElastiCache. Elasticache is now more self-managed with automatic scaling, transparent engine upgrades, and security updates.
 
-Pros:
-Fully serverless solution.
-The design supports ALL third parties via HTTP batch calls.
-Enrichment Lambda function capabilities - filter, PII, enrichment.
-It offers the best debuggability since you control the critical part of the chain - the Lambda function.
-Lambda supports automatic scaling.
-Failed logs are sent to a backup S3 bucket.
-Cons:
-You need to write a lot of code to get everything working.
-It is harder to switch between third parties - you need to rewrite the enrichment function to match the payload of the other third party and change the code that exports via HTTP.
-KinesisData Streams can cost more than Firehose if you don't select the correct scale mechanism that fits your log bursts (on-demand vs. provisioned).
- 
+However, would you consider it "true serverless" when it comes with a mandatory VPC requirement and costs you a minimum of 90$ per month for idle time?
 
-Summary
-We've covered three serverless designs to export CloudWatch logs to third parties.
-Each has its pros and cons. First, select the third party that fits your observability requirements, then choose the design that can matches your third-party.
+Khawaja Shams, one of the founders of Momento, who is one of the competitors of this new offering, offers his take:
 
-Remember to estimate the export costs and design the deployment mechanism to deploy the logs exporter across your organization. Be sure to manage it via infrastructure as code (IaC) so it is easy to deploy, manage and upgrade across the organization.
+The original announcement can be found here.
+
+SQS Improvements
+
+Throughput increase and dead letter queue redrive support for Amazon SQS FIFO queues
+
+Better scaling and improved performance are always good news. SQS now supports sending or receiving up to 700,000 messages per second with batching, which is an insane number.
+
+SQS redrive support for FIFO SQS is even better. Before, it was supported only for regular SQS. Redrive is the ability to send a batch (usually of failed items) from an SQS (usually a DLQ) to another SQS via API. 
+
+If you want to learn more about redrive API and SQS best practices, check out my series here.
+
+The original announcement can be found here.
+
+CloudWatch Improvements
+
+CloudWatch has declared several improvements, both before and during re:Invent.
+
+Let's go over them quickly:
+
+Use natural language to query Amazon CloudWatch logs and metrics (preview)
+
+In the announcement, the author asks CW natively: "Tell me the duration of the ten slowest invocations" and CW generates a CW query out of it:
+
+OK, that's quite impressive.
+
+I've always found CW query languages a bit cumbersome, and this is a game changer - super easy. The author continues and shows that there's context to chat, and he updates the query to output fewer fields. 
+
+The original announcement can be found here.
+
+If you wish to learn more about CloudWatch logging best practices, read my post
+
+here and about CloudWatch dashboard building, click here.
+
+Automated pattern analytics and anomaly detection
+
+Amazon CloudWatch has added new capabilities to automatically recognize and cluster patterns among log records, extract noteworthy content and trends, and notify you of anomalies using advanced machine learning (ML) algorithms trained using decades of Amazon and AWS operational data.
+
+The original announcement can be found here.
+
+Log class for infrequent access logs at a reduced price
+
+CW logs can get expensive at scale, and the new log class is a great way to reduce costs. However, you need to pay attention to what you lose. If you select this logs class, you cannot write EMF logs and transform them into metrics, breaking utilities such as Powertools for Lambda Tracer utility. You also lose the ability to subscribe to log events or export to S3.
+
+If you wish to learn more about exporting logs read my post here.
+
+If you wish to learn more about tracing best practices, click here.
+
+The original announcement can be found here.
+
+StepFunction Updates
+
+Two updates for step function but a highly coveted ones that improve the usability of StepFunctions.
+
+HTTPS Endpoints
+
+The first, HTTPS endpoints are a new resource for your task states that allow you to connect to third-party HTTP targets outside AWS. Step Functions invoke the HTTP endpoint, deliver a request body, headers, and parameters, and get a response from the third-party services. You can use any preferred HTTP method, such as GET or POST.
+
+Test State
+
+The ability to test a specific step with simulated input and check its output significantly improves the developer experience for those who use the console to design their step functions.
+
+The original announcement can be found here.
+
+AWS Lambda Improvements
+
+We've got two announcements here.
+
+Performance
+
+The first announcement is better scaling performance. In the link below (which I set at the exact time in the session), Chris explains this news feature with an excellent graph, and I highly recommend the session.
+
+The original announcement can be found here.
+
+Logging Improvements
+
+The second announcement happened about a week before re:Invent and was related to structured logging support. This is excellent for those who write lean Lambda functions without external dependencies (such as a logger). Now, you can write your logs (with prints) in a JSON format and set the log level.
+
+The original announcement can be found here.
+
+EventBridge Pipes Logging Support
+
+EventBridge Pipes is a promising service. However, until now, the lack of proper debug capabilities and error handling meant you needed to guess why your configuration or enrichment Lambda did not work. With this release, you can get logs and failure reasons (pushed to an S3 bucket if you wish, similar to Firehose's behavior) and debug your code. I can finally recommend EB pipes. Go ahead and give it a try.
+
+The original announcement can be found here.
+
+If you wish to learn of a design that leverages EventBridge pipes to export logs from CW, read my post here.
+
+RedShift Serverless (Preview)
+
+Ah, yes, the year of AI. I'm not too familiar with Amazon RedShift. However, this announcement is on the right path to making the service more self-managed. However, I wouldn't call it serverless just yet.
+
+Amazon Redshift Serverless uses AI techniques to scale automatically with workload changes across all key dimensions—such as data volume changes, concurrent users, and query complexity—to meet and maintain your price performance targets
+
+The original announcement can be found here.
+
+Amazon Aurora Limitless (Preview)
+
+Amazon Aurora Limitless Database, which enables you to scale your Amazon Aurora clusters to millions of write transactions per second and manage petabytes of data. With this new capability, you can scale your relational database workloads on Aurora beyond the limits of a single Aurora writer instance without needing to create custom application logic or manage multiple databases.
+
+As this feature is in preview, I'd wait before putting it in production anytime soon. However, on the surface, this can be huge for those who use Aurora and worry about writing custom scaling code.
+
+The original announcement can be found here.
+
+Amazon Q (Preview)
+
+Imagine having an AWS expert sitting next to you when you work. Imagine you can provide AI assistance to your employees or customers who knows your data and products at an expert level. This is the power and simplicity that Q strives to achieve.
+
+Most importantly, I find this line in the article critical:
+
+AWS never uses customers’ content from Amazon Q to train the underlying models. In other words, your company information remains secure and private.
+
+The article provides several use cases for using Q which you can read here.
+
+AWS AppComposer in VS Code
+
+AppComposer comes to VS Code IDE. You can use AWS Application Composer's drag-and-drop interface to create an application design from scratch or import an existing application definition to edit it. It supports CloudFormation or SAM templates at the moment.
+
+An elegant feature, you update your diagram, and IaC is added to your project, magic. Lots of potential here.
+
+I hope there's CDK support coming in the future!
+
+The original announcement can be found here.
+
+The toolkit can be installed from here.
