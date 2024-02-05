@@ -30,7 +30,9 @@ It uploads any text file in the /text folder to S3, turns them into .mp3 files a
 
 The email address is hardcoded in the service/logic/email.py file and can be changed.
 
-This is a sample code as part of a blog post I'm working on.
+Here's a deep dive into the design: https://www.ranthebuilder.cloud/post/serverless-empowers-accessibility-convert-text-to-speech-with-amazon-polly
+
+Important: make sure you enable SES to send emails to the email address you choose https://docs.aws.amazon.com/ses/latest/dg/creating-identities.html
 
 ### Who gave me this Idea?
 
