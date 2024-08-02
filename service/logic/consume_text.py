@@ -29,9 +29,10 @@ def consume_text_async(bucket_name: str, object_key: str) -> None:
         _,
     ) = polly_wrapper.do_synthesis_task(
         text=text,
-        engine='neural',
-        voice='Danielle',
+        engine='generative',
+        voice='Ruth',
         audio_format='mp3',
+        lang_code='en-US',
         s3_bucket=bucket_name,
     )
     send_binary_file(audio_stream.read())

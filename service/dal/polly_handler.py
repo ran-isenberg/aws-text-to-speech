@@ -113,7 +113,7 @@ class PollyWrapper:
             if task_status in ('completed', 'failed'):
                 print(f'task status is {task_status}')
                 break
-            time.sleep(5)
+            time.sleep(10)
             tries -= 1
 
         output_stream = io.BytesIO()
@@ -176,11 +176,11 @@ class PollyWrapper:
             raise
         else:
             bucket = self.s3_resource.Bucket(s3_bucket)
-            audio_stream = self._wait_for_task(10, speech_task['TaskId'], 'speech', wait_callback, bucket)
+            audio_stream = self._wait_for_task(50, speech_task['TaskId'], 'speech', wait_callback, bucket)
 
             visemes = None
             if include_visemes:
-                viseme_data, _ = self._wait_for_task(10, viseme_task['TaskId'], 'viseme', wait_callback, bucket)
+                viseme_data, _ = self._wait_for_task(50, viseme_task['TaskId'], 'viseme', wait_callback, bucket)
                 visemes = [json.loads(v) for v in viseme_data.read().decode().split() if v]
 
             return audio_stream, visemes
