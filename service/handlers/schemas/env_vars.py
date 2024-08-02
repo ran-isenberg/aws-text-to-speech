@@ -8,5 +8,4 @@ class Observability(BaseModel):
     LOG_LEVEL: Literal['DEBUG', 'INFO', 'ERROR', 'CRITICAL', 'WARNING', 'EXCEPTION']
 
 
-class ConsumerEnvVars(Observability):
-    ...
+class ConsumerEnvVars(Observability): ...

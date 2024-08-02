@@ -75,7 +75,7 @@ class TextConsumer(Construct):
             },
             tracing=_lambda.Tracing.ACTIVE,
             retry_attempts=0,
-            timeout=Duration.minutes(10),
+            timeout=Duration.minutes(14),
             memory_size=512,
             layers=[lambda_layer],
             role=role,
