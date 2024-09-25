@@ -1,3 +1,4 @@
+import getpass
 import os
 from pathlib import Path
 
@@ -13,19 +14,22 @@ import cdk.my_service.constants as constants
 
 def get_username() -> str:
     try:
-        return os.getlogin().replace('.', '-')
+        return getpass.getuser().replace('.', '-')
     except Exception:
         return 'github'
 
 
 def get_stack_name() -> str:
     repo = Repo(Path.cwd())
-    # deepcode ignore NoHardcodedCredentials
     username = get_username()
+    cicd_environment = os.getenv('ENVIRONMENT', 'dev')
     try:
-        return f'{username}-{repo.active_branch}-{constants.SERVICE_NAME}'
+        branch_name = f'{repo.active_branch}'.replace('/', '-').replace('_', '-')
+        return f'{username}-{branch_name}-{constants.SERVICE_NAME}-{cicd_environment}'
     except TypeError:
-        return f'{username}-{constants.SERVICE_NAME}'
+        # we're running in detached mode (HEAD)
+        # see https://github.com/gitpython-developers/GitPython/issues/633
+        return f'{username}-{constants.SERVICE_NAME}-{cicd_environment}'
 
 
 class ServiceStack(Stack):
